@@ -11,6 +11,9 @@ class DynamicArray {
   }
 
   push(val) {
+    if (this.length === this.capacity) {
+      this.resize()
+    }
     this.data[this.length] = val
     this.length++
   }
@@ -41,6 +44,9 @@ class DynamicArray {
   }
 
   unshift(val) {
+    if (this.length === this.capacity) {
+      this.resize()
+    }
     for(let i = this.length; i > 0; i--){
       this.data[i] = this.data[i-1]; //shifts all the values over one slot to the right
     }
@@ -49,16 +55,25 @@ class DynamicArray {
   }
 
   indexOf(val) {
-
-    // Your code here
+    for (let i = 0; i < this.length; i++) {
+      if (this.data[i] === val) {
+        return i;
+      }
+    }
+    return -1;
   }
 
   resize() {
-
-    // Your code here
-  }
-
+      this.capacity *=2
+      let newArr = new Array(this.capacity)
+      for (let i = 0; i < this.data.length; i++) {
+        newArr[i] = this.data[i]
+      }
+      this.data = newArr;
+    }
+    
 }
+
 
 
 module.exports = DynamicArray;
